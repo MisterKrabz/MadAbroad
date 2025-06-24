@@ -31,7 +31,7 @@ public class ProgramController {
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         System.out.println("!!!!!!!!!! REQUEST RECEIVED BY CONTROLLER !!!!!!!!!!");
         if (program != null) {
-            System.out.println("--> Received Program Name: " + program.getProgramName());
+            System.out.println("--> Received Program Name: " + program.getProgramUniversityName());
             System.out.println("--> Received Country: " + program.getCountry());
         } else {
             System.out.println("--> ERROR: The program object is NULL after JSON conversion.");
