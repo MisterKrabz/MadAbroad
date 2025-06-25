@@ -46,6 +46,9 @@
   border: 1px solid #ccc;
   border-radius: 50px;
   padding: 1.5vh 2vw; 
-  font-size: 1.5vw;
   box-sizing: border-box; /* Ensures padding doesn't affect final width */
+}
+
+.search-bar::placeholder{
+  font-size: 100%;
 }
