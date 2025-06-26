@@ -1,3 +1,7 @@
+/*
+ * this class is a blueprint model for defining what a "Study Abroad Program" is for the database 
+ */
+
 package com.patrickwang.MadAbroad.model;
 
 import jakarta.persistence.Column; // We import the new Jakarta Persistence APIs
