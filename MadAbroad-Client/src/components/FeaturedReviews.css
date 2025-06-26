@@ -3,3 +3,36 @@
     font-size: 2rem;
     margin-left: 3rem;
 }
+
+/* src/components/FeaturedReviews.css */
+
+.program-cards-container {
+  display: flex;
+  /* Prevents cards from wrapping to a new line */
+  flex-wrap: nowrap;
+  /* Enables a horizontal scrollbar only when content overflows */
+  overflow-x: auto;
+  gap: 2rem;
+  /* Adjust padding to provide space within the scrollable area, matching the title's margin */
+  padding: 1rem 3rem;
+}
+
+
+/* OPTIONAL: Custom scrollbar styling for a cleaner look (WebKit browsers: Chrome, Safari, Edge) */
+.program-cards-container::-webkit-scrollbar {
+  height: 8px; /* Height of the horizontal scrollbar */
+}
+
+.program-cards-container::-webkit-scrollbar-track {
+  background: #f0f0f0; /* The track of the scrollbar */
+  border-radius: 4px;
+}
+
+.program-cards-container::-webkit-scrollbar-thumb {
+  background-color: #cccccc; /* The draggable scrolling handle */
+  border-radius: 4px;
+}
+
+.program-cards-container::-webkit-scrollbar-thumb:hover {
+  background-color: #b3b3b3; /* The handle on hover */
+}
