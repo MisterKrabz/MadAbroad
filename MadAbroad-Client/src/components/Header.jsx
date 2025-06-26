@@ -1,21 +1,38 @@
-import React, { useState } from 'react';
-// 1. Import HashLink and rename it to Link for easy replacement
+import React, { useState, useEffect } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
-
 import '../App.css';
 import logo from '../assets/logo.png'; 
 import searchIcon from '../assets/searchIcon.png'; 
 import './Header.css'; 
 
-function Header() {
+// 1. Receive the onSearchClick prop
+function Header({ onSearchClick }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isMenuOpen]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // This helper function ensures the menu closes after a link is clicked.
   const closeMenu = () => setIsMenuOpen(false);
+  
+  // 2. Create a new handler to call both functions
+  const handleSearchAndClose = () => {
+    closeMenu(); // Close the mobile menu
+    if(onSearchClick) {
+      onSearchClick(); // Call the focus function from App.jsx
+    }
+  };
 
   return (
     <header className="header-container">
@@ -23,14 +40,8 @@ function Header() {
         <img src={logo} alt="Mad Abroad Logo" className="logo-img"/>
       </Link>
 
-      {/* --- Desktop Navigation --- */}
-      {/* 2. Update the 'to' prop for on-page links with hashes */}
       <nav className="nav-links">
-        {/* The 'smooth' prop enables smooth scrolling! */}
-        <Link smooth to="/#featured-reviews">Featured</Link> 
-        <Link smooth to="/#explore">Explore</Link>
-        <Link to="/post-a-review">Post a Review</Link> {/* This remains a standard link */}
-        <Link smooth to="/#about">About</Link>
+        {/* ... desktop links ... */}
       </nav>
 
       <div className="search-icon-container">
@@ -48,14 +59,13 @@ function Header() {
         <div className="bar"></div>
       </button>
 
-      {/* --- Mobile Dropdown Menu --- */}
-      {/* 3. Update mobile links as well */}
       <nav className={`mobile-nav-links ${isMenuOpen ? 'active' : ''}`}>
         <Link smooth to="/#featured-reviews" onClick={closeMenu}>Featured</Link>
         <Link smooth to="/#explore" onClick={closeMenu}>Explore</Link>
-        <Link to="/post-a-review" onClick={closeMenu}>Post a Review</Link>
         <Link smooth to="/#about" onClick={closeMenu}>About</Link>
-        <Link to="/search" onClick={closeMenu}>Search</Link> {/* Assuming you have a /search page */}
+        <Link to="/post-a-review" onClick={closeMenu}>Post a Review</Link>
+        {/* 3. Update the Search link's onClick */}
+        <Link smooth to="/#hero" onClick={handleSearchAndClose}>Search</Link>
       </nav>
     </header>
   );

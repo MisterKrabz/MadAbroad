@@ -1,144 +1,148 @@
+/* --- HEADER CONTAINER --- */
 .header-container {
-    display: flex;
-    align-items: center; /* all children must be vertically centered */
-    justify-content: space-between; /* all children must be horizontally spaced, this means the first item (icon) must be on the left, the last item (search button) must be on the right, and the middle items (links) must be evenly distributed */
-    font-size: 16px;
-    padding: 0 1rem;
-    background-color: #fff;
-    border-bottom: 1px solid #e0e0e0;
-    min-height: 70px;
-    position: relative; /* Needed for the dropdown */
+  /* This makes the header stick to the top */
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* High z-index to keep it on top of page content */
+
+  /* Your original layout styles */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  padding: 0 1rem;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-
-.logo-img{
-    /* force the image to be the exact same width and height as its container */
-    width: 100%;
-    height: 100%;
-    /* Make the image as large as possible so that it fits inside the container, BUT do NOT crop it and do NOT change its original aspect ratio */
-    object-fit: contain; 
+/* --- LOGO & DESKTOP LINKS --- */
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .logo-container {
-    width: 2.5em;
-    height: 2.5em;
-    display: flex;
-    align-items: center; /* center the logo horizontally within its container */
-    justify-content: center; /* center the logo vertically within its container */
+  width: 2.5em;
+  height: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-/* The nav links take the font size of the parent element (the header) */
 .nav-links {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
 }
 .nav-links a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    transition: color 0.3s ease;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 .nav-links a:hover {
-    color: #c5050c; 
+  color: #c5050c;
 }
 
-
+/* --- SEARCH ICON --- */
 .search-icon-img {
-    /* force the image to be the exact same width and height as its container */
-    width: 100%;
-    height: 100%;
-    /* Make the image as large as possible so that it fits inside the container, but do NOT change its original aspect ratio*/
-    object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .search-icon-container {
-    width: 2.5em; 
-    height: 2.5em;
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
+  width: 2.5em;
+  height: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Hide hamburge and links on desktop by default */
+/* --- MOBILE & HAMBURGER STYLES --- */
 .hamburger-icon {
+  display: none; /* Hidden on desktop */
+}
+.mobile-nav-links {
+  display: none; /* Hidden on desktop */
+}
+
+/* --- MEDIA QUERY FOR MOBILE VIEW --- */
+@media (max-width: 50rem) {
+  /* Hide desktop links and show hamburger */
+  .nav-links,
+  .search-icon-container {
     display: none;
-}
-.mobile-nav-links{
-    display:none;
-}
+  }
+  .hamburger-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .hamburger-icon .bar {
+    height: 3px;
+    width: 100%;
+    background-color: #333;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+  }
 
-.mobile-nav-links a:hover{
-    color: #ec0909; 
-}
+  /* Hamburger 'X' animation */
+  .hamburger-icon.active .bar:nth-child(1) {
+    transform: translateY(10.5px) rotate(45deg);
+  }
+  .hamburger-icon.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger-icon.active .bar:nth-child(3) {
+    transform: translateY(-10.5px) rotate(-45deg);
+  }
 
-
-/* Hide the navigation links and show the hamburger icon on screens 800px and smaller */
-/* 800px / 16px = 50rem */
-@media (max-width: 50rem) { 
-    .nav-links,
-    .search-icon-container {
-        display: none; 
-    }
-
-    .hamburger-icon { 
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around; /* This spaces the bars out */
-        width: 2rem;
-        height: 2rem;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-    }
-
-    .hamburger-icon .bar {
-        height: 3px;
-        width: 100%;
-        background-color: #333;
-        border-radius: 10px;
-        transition: all 0.3s ease-in-out;
-    }
-
-    /* More precise animation for a cleaner 'X' */
-    .hamburger-icon.active .bar:nth-child(1) {
-        transform: translateY(10.5px) rotate(45deg);
-    }
-    .hamburger-icon.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-    .hamburger-icon.active .bar:nth-child(3) {
-        transform: translateY(-10.5px) rotate(-45deg);
-    }
+  /* --- THIS IS THE CORRECTED DROPDOWN LOGIC --- */
+  .mobile-nav-links {
+    display: flex; /* Make it a flex container for its items */
+    position: absolute; /* Position it relative to the header */
+    top: 100%; /* Place it right below the header */
+    left: 0;
+    width: 100%;
     
-    .mobile-nav-links {
-        display: flex; /* This now correctly defines the mobile menu for this viewport */
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1rem 0;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: #fff;
-        border-bottom: 1px solid #e0e0e0;
-        z-index: -1; /* Place it behind the header initially */
-        
-        /* Animation setup */
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease-in-out;
-    }
+    /* Layout for the links inside */
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0;
+    
+    /* Styling */
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
 
-    .mobile-nav-links.active {
-        max-height: 500px; /* Reveal the menu */
-        z-index: 999; /* Bring it to the front when active */
-    }
+    /* The hiding mechanism: Use visibility and opacity for transitions */
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transform: translateY(-20px); /* Start slightly up */
+    opacity: 0;
+    visibility: hidden; /* Hide it completely */
+  }
 
-    .mobile-nav-links a {
-        color: #333;
-        font-size: 1.2rem;
-        text-decoration: none;
-        text-align: center;
-        padding: 0.5rem 1rem;
-    }
+  /* This is what happens when you click */
+  .mobile-nav-links.active {
+    transform: translateY(0); /* Move to its final position */
+    opacity: 1;
+    visibility: visible; /* Make it visible and clickable */
+  }
+
+  .mobile-nav-links a {
+    color: #333;
+    font-size: 1.2rem;
+    text-decoration: none;
+    text-align: center;
+    padding: 0.5rem 1rem;
+  }
+  .mobile-nav-links a:hover {
+    color: #ec0909;
+  }
 }

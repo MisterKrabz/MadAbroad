@@ -3,27 +3,32 @@
 }
 
 .footer-links{
+    display: flex;
     align-items: space-between;
-    margin: 0rem, 2rem, 0rem, 2rem;
+    padding-top: 2rem;
+    padding-left: 2rem;
 }
 
 .footer-links a{
     color: white;
     text-decoration: none;
-    font-size: 1.2rem;
-    margin-right: 2rem;
+    font-size: 1rem;
+    margin-right: 3rem;
     align-items: space-between;
-    padding: 0.7rem;
+}
+.footer-links a:hover{
+    color:#ec0909;
 }
 
 .unaffiliation-container{
     display: flex;
     flex-direction: column;
-    padding: 2rem;
+    padding-left: 2rem;
+    font-size: .75rem
 }
 
 .unaffiliation-text{
     color: white;
-    font-size: 1.2rem;
+    font-size: .5rem;
     text-align: center;
 }
