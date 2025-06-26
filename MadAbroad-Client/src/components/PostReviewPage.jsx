@@ -42,9 +42,9 @@ function PostReviewPage() {
       {/* If no program is selected, show a search box */}
       {!programId && !program && (
         <div className="program-search-container">
-          <h3>First, find your program</h3>
+          <h3>Selected Program</h3>
           {/* You would implement a program search component here */}
-          <input type="search" placeholder="Search for a program..." />
+          <input type="" placeholder="Search for a program..." />
         </div>
       )}
 
