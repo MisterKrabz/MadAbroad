@@ -4,7 +4,7 @@ import '../App.css';
 
 function Hero() {
   return (
-    <section className="hero">
+    <section className="hero" id="hero"> 
       <div className="hero-content">
         <h1 className="hero-title">Mad Abroad</h1>
         <div className="search-bar-container">

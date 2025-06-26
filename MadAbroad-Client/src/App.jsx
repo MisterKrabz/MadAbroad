@@ -1,73 +1,53 @@
-import React from 'react';
+import React, { useRef } from 'react'; // 1. Import useRef
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-// Import layout and shared components
 import './App.css';
+
+// Import all your components
 import Header from './components/Header';
 import Hero from './components/Hero';
 import FeaturedReviews from './components/FeaturedReviews';
 import Explore from './components/Explore';
 import About from './components/About';
 import Footer from './components/Footer';
+import PostReviewPage from './components/PostReviewPage';
 
-// --- Best Practice: Create these page components in a new 'src/pages' folder ---
-
-// 1. Define a component for your Home Page
-const HomePage = () => (
+// A helper component for the homepage layout
+const HomePage = ({ heroSearchInputRef }) => (
   <>
-    <Hero />
+    {/* 4. Pass the ref down to the Hero component */}
+    <Hero ref={heroSearchInputRef} /> 
     <FeaturedReviews />
-    <Explore /> {/* You can decide if Explore stays on the homepage or moves */}
+    <Explore />
     <About/>
-    <Footer/>
   </>
-);
-
-// 2. Define placeholder components for your new pages
-const ExplorePage = () => (
-  <div style={{ padding: '2rem 3rem' }}>
-    <h1>Explore All Programs</h1>
-    <p>The full exploration and filtering page will be built here.</p>
-  </div>
-);
-
-const PostReviewPage = () => (
-  <div style={{ padding: '2rem 3rem' }}>
-    <h1>Post a Review</h1>
-    <p>The form for posting a review will be built here.</p>
-  </div>
-);
-
-const AboutPage = () => (
-  <div style={{ padding: '2rem 3rem' }}>
-    <h1>About Mad Abroad</h1>
-    <p>Information about the project will go here.</p>
-  </div>
 );
 
 
 function App() {
+  // 2. Create a ref that will hold the hero's search input
+  const heroSearchInputRef = useRef(null);
+
+  // 3. Create the function that will be called from the header
+  const handleSearchClick = () => {
+    // Check if the ref is attached to an element
+    if (heroSearchInputRef.current) {
+      // If so, focus it!
+      heroSearchInputRef.current.focus();
+    }
+  };
+  
   return (
     <Router>
-      <div>
-        <Header />
-        <main>
-          <Routes>
-            {/* 3. Update your routes to point to the new page components */}
-            <Route path="/" element={<HomePage />} />
-            <Route path="/explore" element={<ExplorePage />} />
-            <Route path="/post-a-review" element={<PostReviewPage />} />
-            <Route path="/about" element={<AboutPage />} />
-
-            {/* Optional: Add a catch-all 404 page */}
-            <Route path="*" element={
-              <div style={{ padding: '2rem 3rem' }}>
-                <h1>404: Page Not Found</h1>
-              </div>
-            } />
-          </Routes>
-        </main>
-      </div>
+      {/* 5. Pass the handler function to the Header */}
+      <Header onSearchClick={handleSearchClick} />
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage heroSearchInputRef={heroSearchInputRef} />} />
+          <Route path="/post-a-review" element={<PostReviewPage />} />
+          {/* Add any other routes here */}
+        </Routes>
+      </main>
+      <Footer/>
     </Router>
   );
 }
