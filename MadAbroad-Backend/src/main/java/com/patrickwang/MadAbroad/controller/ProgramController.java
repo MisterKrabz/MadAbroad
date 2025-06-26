@@ -1,3 +1,7 @@
+/*
+ * 
+ */
+
 package com.patrickwang.MadAbroad.controller;
 
 import java.util.List;

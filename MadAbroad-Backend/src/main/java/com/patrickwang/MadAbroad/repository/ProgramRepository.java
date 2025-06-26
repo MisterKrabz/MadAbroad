@@ -6,3 +6,4 @@ import com.patrickwang.MadAbroad.model.StudyAbroadProgram;
 
 public interface ProgramRepository extends JpaRepository<StudyAbroadProgram, Long> {
 }
+
