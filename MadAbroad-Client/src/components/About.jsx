@@ -1,0 +1,19 @@
+import "../App.css";
+import "./About.css"; 
+
+function About(){
+    // Add the id="about" attribute to the main div
+    return(
+        <div id="about">
+            <h1 className="section-title">About Mad Abroad</h1>
+            <p className="about-description">
+                Mad Abroad is a community-driven platform designed to help students at the University of Wisconsin-Madison share their study abroad experiences.
+                Our mission is to provide a space where students can read and write reviews about various study abroad programs, allowing students considering studying 
+                abroad to learn more about what these programs truely entail from a non-university source without marketing bias.
+                Whether you're looking for insights on specific programs, tips for navigating the application process, or advice on living abroad, Mad Abroad aims to be your go-to resource.
+            </p>
+        </div>
+    )
+}
+    
+export default About;

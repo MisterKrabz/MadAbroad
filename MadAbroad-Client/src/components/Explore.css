@@ -1,0 +1,66 @@
+/* src/components/Explore.css */
+.explore-section {
+  /* Use a clean background and add padding for separation from other content */
+  background-color: #ffffff;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.filters-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows filters to stack on smaller screens */
+  gap: 1.5rem; /* Space between each filter group */
+  align-items: flex-end; /* Aligns all items, including the button, along their bottom edge */
+  padding: 0 3rem; /* Match the side padding of other section titles */
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Space between label and input */
+  flex: 1 1 200px; /* Allows the element to grow and shrink, with a base width */
+  min-width: 200px;
+}
+
+.filter-group label {
+  font-weight: 500;
+  color: #333;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.filter-group select,
+.filter-group input {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  color: #333;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+  outline: none;
+  border-color: #c5050c; /* Highlight with brand color on focus */
+  box-shadow: 0 0 0 3px rgba(197, 5, 12, 0.15);
+}
+
+.filter-button {
+  padding: 0.8rem 2.5rem;
+  background-color: #c5050c;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  height: fit-content; /* Ensure button aligns correctly with form fields */
+}
+
+.filter-button:hover {
+  background-color: #a4040a;
+}
