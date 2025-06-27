@@ -1,7 +1,3 @@
-/*
- * 
- */
-
 package com.patrickwang.MadAbroad.controller;
 
 import java.util.List;
@@ -18,8 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.patrickwang.MadAbroad.model.StudyAbroadProgram;
 import com.patrickwang.MadAbroad.service.ProgramService;
 
-@RestController
-@RequestMapping("/api/programs")
+/*
+ * This layer is the API's entry/exit point for all web requests related to study abroad programs. 
+ * Its job is to receive incoming HTTP requests, delegate the business logic to the ProgramService,
+ * and then format and return an HTTP response (usually as JSON).
+ *
+ * @RestConroller means that all values from methods in this class should be serialized into
+ * JSON objects and written directly to the HTTP response body. 
+ * 
+ * @RequestMapping maps all requests for that URL path to this controller. 
+ */
+@RestController // Marks this class as a REST controller, which combines @Controller and @ResponseBody. 
+                // @ ResponseBody auto converts the returned java objects into JSON for the HTTP response
+@RequestMapping("/api/programs") // Maps all methods in this class to a base URL path. All endpoints will start with /api/programs
 public class ProgramController {
 
     private final ProgramService programService;
@@ -41,7 +48,7 @@ public class ProgramController {
             System.out.println("--> ERROR: The program object is NULL after JSON conversion.");
         }
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        // --- END OF DIAGNOSTIC LOGGING ---
+
 
         return programService.createProgram(program);
     }
@@ -57,6 +64,6 @@ public class ProgramController {
     // The @PathVariable annotation takes the "id" from the URL and passes it to the method.
     return programService.getProgramById(id)
         .map(program -> ResponseEntity.ok(program)) // If the program is found, return it with a 200 OK status.
-        .orElse(ResponseEntity.notFound().build()); // If not found, return a 404 Not Found status.
+        .orElse(ResponseEntity.notFound().build()); // If the program aint found, return a 404 Not Found status.
     }
 }
