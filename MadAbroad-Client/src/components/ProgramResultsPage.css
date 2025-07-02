@@ -1,0 +1,23 @@
+/* src/components/ProgramResultsPage.css */
+
+.results-page-container {
+  background-color: #ffffff;
+  padding: 2rem 3rem;
+  color: black;
+  min-height: 80vh; /* Ensure it takes up most of the screen height */
+}
+
+.results-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 1rem;
+}
+
+.results-grid {
+  display: grid;
+  /* Create a responsive grid that shows 1, 2, or 3 cards per row */
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}

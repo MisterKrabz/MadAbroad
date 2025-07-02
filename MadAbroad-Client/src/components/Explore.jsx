@@ -1,8 +1,11 @@
 import React from 'react';
-import '../App.css';      // For the global .section-title class
-import './Explore.css';  // For this component's specific styles
+import { useNavigate } from 'react-router-dom'; // 1. Import useNavigate
+import '../App.css';
+import './Explore.css';
 
 function Explore() {
+  const navigate = useNavigate(); // 2. Initialize the hook
+
   // Static options for filters. In a production app, these would be fetched
   // from an API to ensure they are always up-to-date with database values.
   const termOptions = ['Any Term', 'Fall', 'Spring', 'Summer', 'Winter Intersession', 'Full Year'];
@@ -11,6 +14,13 @@ function Explore() {
     'Education', 'Global Health', 'Social Sciences', 'Science & Technology'
   ];
   const languageOptions = ['Any Language', 'English', 'Spanish', 'German', 'Russian'];
+
+  const handleSearch = () => {
+    // 3. Navigate to the results page on click
+    // In a real app, you would gather the filter values and pass them as query params
+    // e.g., navigate('/search-results?focus=Business&term=Fall');
+    navigate('/search-results');
+  };
 
   return (
     <section className="explore-section" id = "explore">
@@ -54,7 +64,8 @@ function Explore() {
         </div>
 
         {/* Action Button */}
-        <button className="filter-button">Search</button>
+        {/* 4. Attach the handler to the button */}
+        <button className="filter-button" onClick={handleSearch}>Search</button>
       </div>
     </section>
   );
