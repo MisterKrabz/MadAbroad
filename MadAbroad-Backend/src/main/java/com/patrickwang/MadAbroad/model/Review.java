@@ -30,13 +30,16 @@ public class Review {
 
     @Column(nullable = false)
     private int rating; 
+    private int socialScene;
+    private int academicDifficulty;
+    private int creditTransferability;
+    private int amountOfCultureShock;
 
     @Lob
     @Column(columnDefinition = "TEXT", nullable = false)
     private String title;
-    private String comment;
+    private String personalAnecdote;
     private int helpful;
-    private int difficulty;
     private LocalDateTime reviewDate;
 
 
@@ -55,26 +58,32 @@ public class Review {
     reviewDate = LocalDateTime.now();
     }
 
-    // Constructors, Getters, and Setters...
     public Review() {
     }
 
+    // Constructors, Getters, and Setters...
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public int getRating() { return rating; }
     public void setRating(int rating) { this.rating = rating; }
     public String getTitle(){ return title; }
     public void setTitle(String title) { this.title = title; } 
-    public String getComment() { return comment; }
-    public void setComment(String comment) { this.comment = comment; }
+    public String getPersonalAnecdote() { return personalAnecdote; }
+    public void setPersonalAnecdote(String personalAnecdote) { this.personalAnecdote = personalAnecdote; }
     public LocalDateTime getReviewDate() { return reviewDate; }
     public void setReviewDate(LocalDateTime reviewDate) { this.reviewDate = reviewDate; }
     public StudyAbroadProgram getProgram() { return program; }
     public void setProgram(StudyAbroadProgram program) { this.program = program; }
     public int getHelpful(){ return helpful; }
     public void setHelpful(int helpful){ this.helpful = helpful; }
-    public int getDifficulty(){ return difficulty; }
-    public void setDifficulty(int difficulty){ this.difficulty = difficulty; }
     public List<String> getImageUrls() { return imageUrls; }
     public void setImageUrls(List<String> imageUrls) { this.imageUrls = imageUrls; }
+    public int getSocialScene(){ return socialScene; }
+    public void setSocialScene(int socialScene){ this.socialScene = socialScene; }
+    public int getAcademicDifficulty(){ return academicDifficulty; }
+    public void setAcademicDifficulty(int academicDifficulty){ this.academicDifficulty = academicDifficulty; }
+    public int getCreditTransferability(){ return creditTransferability; }
+    public void setCreditTransferability(int creditTransferability){ this.creditTransferability = creditTransferability; }
+    public int getAmountOfCultureShock(){ return amountOfCultureShock; }
+    public void setAmountOfCultureShock(int amountOfCultureShock){ this.amountOfCultureShock = amountOfCultureShock; }
 }

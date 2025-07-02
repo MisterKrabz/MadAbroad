@@ -37,6 +37,9 @@ public class StudyAbroadProgram {
     @Column(nullable = false) 
     private String language;
 
+    @Column(nullable = false) 
+    private String link;
+
 
     /*
     * This constructor is used when data is flowing from the database to the java application. 
@@ -56,13 +59,14 @@ public class StudyAbroadProgram {
     * 1. StudyAbroadProgram demoProgram = new StudyAbroadProgram(...)
     * 2. programRepository.save(demoProgram)
     */
-    public StudyAbroadProgram(String programUniversityName, String country, String city, String terms, String areasOfFocus, String language) {
+    public StudyAbroadProgram(String programUniversityName, String country, String city, String terms, String areasOfFocus, String language, String link) {
         this.programUniversityName = programUniversityName;
         this.country = country;
         this.city = city;
         this.terms = terms;
         this.areasOfFocus = areasOfFocus;
         this.language = language;
+        this.link = link;
     }
 
     public Long getId() { return id; }
@@ -79,4 +83,6 @@ public class StudyAbroadProgram {
     public void setAreasOfFocus( String areasOfFocus ){ this.areasOfFocus = areasOfFocus; }
     public String getLanguage(){ return language; }
     public void setLanguage( String language ){ this.language = language; }
+    public String getLink() { return link; }
+    public void setLink(String link) { this.link = link; }
 }
