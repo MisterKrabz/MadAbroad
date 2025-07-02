@@ -42,4 +42,8 @@ public class ProgramService {
         // Delegate the call to the repository's new search method.
         return programRepository.searchPrograms(searchTerm);
     }
+
+    public StudyAbroadProgram saveProgram(StudyAbroadProgram program) {
+        return programRepository.save(program);
+    }
 }

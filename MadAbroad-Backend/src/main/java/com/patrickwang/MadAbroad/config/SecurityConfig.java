@@ -23,7 +23,6 @@ public class SecurityConfig {
         http
             .cors(withDefaults())
             .csrf(csrf -> csrf.disable())
-            // ✅ CHANGE: This line now permits all requests, disabling the login prompt.
             .authorizeHttpRequests(authz -> authz
                 .anyRequest().permitAll()
             );
