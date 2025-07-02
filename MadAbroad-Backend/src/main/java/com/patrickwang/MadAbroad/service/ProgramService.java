@@ -30,16 +30,16 @@ public class ProgramService {
     /*
      * A "business logic" method 
      */
-    public StudyAbroadProgram createProgram(StudyAbroadProgram program) {
-        // The logic is simple: just save the program to the database.
-        return programRepository.save(program);
-    }
-
     public List<StudyAbroadProgram> getAllPrograms() {
         return programRepository.findAll();
     }
     
     public Optional<StudyAbroadProgram> getProgramById(Long id) {
         return programRepository.findById(id);
+    }
+
+    public List<StudyAbroadProgram> searchPrograms(String searchTerm) {
+        // Delegate the call to the repository's new search method.
+        return programRepository.searchPrograms(searchTerm);
     }
 }

@@ -21,7 +21,7 @@ public class ReviewService {
     private final ProgramRepository programRepository;
     private final FileStorageService fileStorageService;
 
-    public Review createReviewForProgram(Long programId, Review review, List<MultipartFile> files) {
+    public Review createReviewForProgram(Long programId, Review review, List<MultipartFile> photos) {
         // Step 1: Find the parent program and associate it
         StudyAbroadProgram program = programRepository.findById(programId)
                 .orElseThrow(() -> new RuntimeException("Program not found with id: " + programId));
@@ -33,11 +33,11 @@ public class ReviewService {
 
         // Step 3: Store the files and collect their paths
         List<String> imageUrls = new ArrayList<>();
-        if (files != null && !files.isEmpty()) {
-            if (files.size() > 9) {
+        if (photos != null && !photos.isEmpty()) {
+            if (photos.size() > 9) {
                 throw new RuntimeException("Cannot upload more than 9 images.");
             }
-            for (MultipartFile file : files) {
+            for (MultipartFile file : photos) {
                 if (file != null && !file.isEmpty()) {
                     String filePath = fileStorageService.storeFile(file, reviewId);
                     imageUrls.add(filePath);
