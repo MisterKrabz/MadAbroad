@@ -47,7 +47,7 @@ const featuredPrograms = [
 function FeaturedReviews() {
   return (
     <section className="featured-reviews" id="featured-reviews">
-      <h2 className="section-title">Featured Reviews:</h2>
+      <h2 className="section-title">Trending Reviews:</h2>
       <div className="program-cards-container">
         {/* Iterate over the 'featuredPrograms' array. For each 'program' object:
           1. Render a 'ProgramCard' component.

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'; // 1. Import useRef
+import React, { useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
@@ -10,6 +10,7 @@ import Explore from './components/Explore';
 import About from './components/About';
 import Footer from './components/Footer';
 import PostReviewPage from './components/PostReviewPage';
+import ProgramResultsPage from './components/ProgramResultsPage'; // <-- Import the new page
 
 // A helper component for the homepage layout
 const HomePage = ({ heroSearchInputRef }) => (
@@ -32,7 +33,7 @@ function App() {
     // Check if the ref is attached to an element
     if (heroSearchInputRef.current) {
       // If so, focus it!
-      heroSearchInputRef.current.focus();
+      heroSearchInput_ref.current.focus();
     }
   };
   
@@ -44,7 +45,10 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage heroSearchInputRef={heroSearchInputRef} />} />
           <Route path="/post-a-review" element={<PostReviewPage />} />
-          {/* Add any other routes here */}
+          {/* Add a route for a specific review post */}
+          <Route path="/post-a-review/:programId" element={<PostReviewPage />} />
+          {/* Add the new route for search results */}
+          <Route path="/search-results" element={<ProgramResultsPage />} />
         </Routes>
       </main>
       <Footer/>

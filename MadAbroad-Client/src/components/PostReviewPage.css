@@ -1,0 +1,154 @@
+/* src/components/PostReviewPage.css */
+
+.review-page-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.review-page-container h1 {
+  text-align: center;
+  color: #c5050c; /* UW Red */
+  margin-bottom: 1.5rem;
+}
+
+.review-page-container h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.form-label .required {
+  color: #c5050c;
+  margin-left: 4px;
+}
+
+.form-input,
+.form-textarea {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #c5050c;
+  box-shadow: 0 0 0 3px rgba(197, 5, 12, 0.15);
+}
+
+.form-textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.star-rating-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.star {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #ccc;
+  transition: color 0.2s ease;
+}
+
+.star.selected,
+.star:hover {
+  color: #ffc107; /* Gold color for stars */
+}
+
+.image-upload-label {
+  padding: 0.8rem 1.5rem;
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px dashed #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.image-upload-label:hover {
+  background-color: #e9e9e9;
+  border-color: #bbb;
+}
+
+#image-upload {
+  display: none; /* Hide the actual file input */
+}
+
+.image-preview {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.image-preview span {
+  font-style: italic;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.submit-button {
+  padding: 0.9rem 2rem;
+  background-color: #c5050c;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #a4040a;
+}
+
+.submit-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.program-search-container {
+  padding: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fdfdfd;
+}
