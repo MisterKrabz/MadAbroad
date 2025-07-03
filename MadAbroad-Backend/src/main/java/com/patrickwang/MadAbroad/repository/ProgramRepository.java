@@ -1,5 +1,3 @@
-// In com.patrickwang.MadAbroad.repository.ProgramRepository.java
-
 package com.patrickwang.MadAbroad.repository;
 
 import java.util.List;

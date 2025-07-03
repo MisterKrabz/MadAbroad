@@ -35,3 +35,4 @@ build/
 # secrets 
 .env
 /mysql-data/
+/src/main/resources/application.properties

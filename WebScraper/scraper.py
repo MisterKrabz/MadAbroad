@@ -83,6 +83,7 @@ def scrape_and_process_all_pages(driver):
             terms = ""
             language = ""
             areas_of_focus = ""
+            link = ""
             
             while i < len(rows_on_this_page):
                 row = rows_on_this_page[i]
@@ -96,10 +97,10 @@ def scrape_and_process_all_pages(driver):
                         # This call will now succeed because the function exists
                         parsed_title = parse_title_string(title_text)
 
-                        # by default, .split() will remove all whitespace. Dont need to insert "\n"
                         terms = ' '.join(cells[0].text.split()) if len(cells) > 0 else "Not Specified"
                         language = ' '.join(cells[1].text.split()) if len(cells) > 1 else "Not Specified"
                         areas_of_focus = ' '.join(cells[3].text.split()) if len(cells) > 3 else "Not Specified"
+                        link = title_link.get_attribute("href") if title_link else "Not Specified"
 
                         if (i + 2) < len(rows_on_this_page) and "program-focuses" in rows_on_this_page[i+2].get_attribute("class"):
                             i += 3
@@ -117,7 +118,8 @@ def scrape_and_process_all_pages(driver):
                     "city": parsed_title["city"],
                     "terms": terms,
                     "language": language,
-                    "areasOfFocus": areas_of_focus
+                    "areasOfFocus": areas_of_focus,
+                    "link": link
                 }
                 
                 final_structured_data.append(program_dict)
@@ -167,9 +169,6 @@ if __name__ == '__main__':
             Press enter to continue. Press Ctrl + C to exit.
           
         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!""")
-
-    
-    print()
     
     driver = setup_driver()
     try:
