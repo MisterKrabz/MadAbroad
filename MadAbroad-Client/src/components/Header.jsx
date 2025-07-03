@@ -42,7 +42,6 @@ function Header() {
       <nav className="nav-links">
         <Link smooth to="/#featured-reviews">Featured</Link> 
         <Link smooth to="/#explore">Explore</Link>
-        <Link to="/post-a-review">Post a Review</Link>
         <Link smooth to="/#about">About</Link>
       </nav>
 
