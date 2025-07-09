@@ -1,0 +1,48 @@
+
+# IDE-specific metadata files
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+
+# Build artifacts
+target/
+build/
+dist/
+
+# Maven wrapper generated files
+# Corrected path to point inside the backend folder
+/MadAbroad-Backend/.mvn/wrapper/maven-wrapper.jar
+
+# Spring Tool Suite (STS) & Eclipse specific files
+# Corrected paths to be specific to the backend folder
+/MadAbroad-Backend/.apt_generated
+/MadAbroad-Backend/.classpath
+/MadAbroad-Backend/.factorypath
+/MadAbroad-Backend/.project
+/MadAbroad-Backend/.settings
+/MadAbroad-Backend/.springBeans
+/MadAbroad-Backend/.sts4-cache
+
+# NetBeans specific files
+/nbproject/
+/nbbuild/
+/nbdist/
+/.nb-gradle/
+
+# Log files
+*.log
+
+# =================================================
+# SECRETS - DO NOT COMMIT
+# =================================================
+
+# Environment file at the root
+.env
+
+# Local database data
+/mysql-data/
+
+# Review seeding task for fake data population, it has the database username and password inside
+/RandomReviewDataSeeding/SeedReviews.py

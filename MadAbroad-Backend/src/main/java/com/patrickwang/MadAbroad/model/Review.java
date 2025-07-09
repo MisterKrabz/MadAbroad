@@ -32,8 +32,7 @@ public class Review {
     private int rating; 
     private int socialScene;
     private int academicDifficulty;
-    private int creditTransferability;
-    private int amountOfCultureShock;
+    private int culture;
 
     @Lob
     @Column(columnDefinition = "TEXT", nullable = false)
@@ -61,7 +60,7 @@ public class Review {
     public Review() {
     }
 
-    // Constructors, Getters, and Setters...
+    //  Getters, and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public int getRating() { return rating; }
@@ -82,8 +81,6 @@ public class Review {
     public void setSocialScene(int socialScene){ this.socialScene = socialScene; }
     public int getAcademicDifficulty(){ return academicDifficulty; }
     public void setAcademicDifficulty(int academicDifficulty){ this.academicDifficulty = academicDifficulty; }
-    public int getCreditTransferability(){ return creditTransferability; }
-    public void setCreditTransferability(int creditTransferability){ this.creditTransferability = creditTransferability; }
-    public int getAmountOfCultureShock(){ return amountOfCultureShock; }
-    public void setAmountOfCultureShock(int amountOfCultureShock){ this.amountOfCultureShock = amountOfCultureShock; }
+    public int getCulture(){ return culture; }
+    public void setCulture(int culture){ this.culture = culture; }
 }
