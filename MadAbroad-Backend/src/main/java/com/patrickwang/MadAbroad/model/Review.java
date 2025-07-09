@@ -28,28 +28,33 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // star reviews 
     @Column(nullable = false)
     private int rating; 
-    private int socialScene;
+    private int social;
     private int academicDifficulty;
     private int culture;
 
-    @Lob
+    // text, @Lob used to change strings from VARCHAR(225) to TEXT types increasing character limits 
+    @Lob 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String title;
+    @Lob 
     private String personalAnecdote;
+
+    // extra stuff 
     private int helpful;
     private LocalDateTime reviewDate;
 
 
-    // This now stores a list of image paths for the review.
-    @ElementCollection(fetch = FetchType.EAGER) // EAGER fetch ensures image URLs are always loaded with the review.
-    @CollectionTable(name = "review_image_urls", joinColumns = @JoinColumn(name = "review_id")) // Creates a separate table for the URLs.
-    @Column(name = "image_url") // Defines the column name in the new table.
+    // This stores a list of image paths for the review.
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "review_image_urls", joinColumns = @JoinColumn(name = "review_id"))
+    @Column(name = "image_url")
     private List<String> imageUrls = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY) // Signifies that MANY Reviews can belong to ONE Program. LAZY fetch is a performance optimization.
-    @JoinColumn(name = "program_id", nullable = false) // This creates a 'program_id' column in the 'reviews' table to link back to the program.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "program_id", nullable = false)
     private StudyAbroadProgram program;
 
     @PrePersist // This JPA annotation tells the system to run this method before saving a new review.
@@ -60,7 +65,7 @@ public class Review {
     public Review() {
     }
 
-    //  Getters, and Setters
+    // Constructors, Getters, and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public int getRating() { return rating; }
@@ -77,8 +82,8 @@ public class Review {
     public void setHelpful(int helpful){ this.helpful = helpful; }
     public List<String> getImageUrls() { return imageUrls; }
     public void setImageUrls(List<String> imageUrls) { this.imageUrls = imageUrls; }
-    public int getSocialScene(){ return socialScene; }
-    public void setSocialScene(int socialScene){ this.socialScene = socialScene; }
+    public int getSocial(){ return social; }
+    public void setSocial(int social){ this.social = social; }
     public int getAcademicDifficulty(){ return academicDifficulty; }
     public void setAcademicDifficulty(int academicDifficulty){ this.academicDifficulty = academicDifficulty; }
     public int getCulture(){ return culture; }
