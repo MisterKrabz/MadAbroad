@@ -39,8 +39,6 @@ function App() {
           <Route path="/post-a-review" element={<PostReviewPage />} />
           <Route path="/post-a-review/:programId" element={<PostReviewPage />} />
           <Route path="/search-results" element={<ProgramResultsPage />} />
-          {/* You would add a route for a full review page like this: */}
-          {/* <Route path="/reviews/:reviewId" element={<FullReviewPage />} /> */}
         </Routes>
       </main>
       <Footer/>

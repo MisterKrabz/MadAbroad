@@ -41,8 +41,7 @@ function FeaturedReviews() {
     if (featuredReviews.length === 0) {
       return <p className="status-message">No featured reviews available yet.</p>;
     }
-    // The ReviewCard component will now receive the ReviewDTO object
-    // and can access review.program.programUniversityName without issue.
+    
     return featuredReviews.map(review => (
       <ReviewCard key={review.id} review={review} />
     ));

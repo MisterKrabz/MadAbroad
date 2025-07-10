@@ -2,7 +2,6 @@ import "../App.css";
 import "./About.css"; 
 
 function About(){
-    // Add the id="about" attribute to the main div
     return(
         <div id="about">
             <h1 className="section-title">About Mad Abroad</h1>

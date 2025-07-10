@@ -1,5 +1,3 @@
-/* src/components/PostReviewPage.css */
-
 .review-page-container {
   max-width: 800px;
   margin: 2rem auto;
@@ -12,7 +10,7 @@
 
 .review-page-container h1 {
   text-align: center;
-  color: #c5050c; /* UW Red */
+  color: #c5050c; 
   margin-bottom: 1.5rem;
 }
 

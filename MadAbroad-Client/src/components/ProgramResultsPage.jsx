@@ -1,5 +1,3 @@
-// In src/components/ProgramResultsPage.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProgramCard from './ProgramCard';
@@ -45,9 +43,6 @@ function ProgramResultsPage() {
   } else {
     content = (
       <div className="results-grid">
-        {/* This is much cleaner. I'm passing the program object directly 
-          without changing its structure.
-        */}
         {programs.map(program => (
           <ProgramCard 
             key={program.id} 

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import './PostReviewPage.css';
 
-// Star component (no changes needed)
+// Star component 
 const Star = ({ selected, onSelect, onHover, onLeaveHover }) => (
   <span className={`star ${selected ? 'selected' : ''}`} onClick={onSelect} onMouseEnter={onHover} onMouseLeave={onLeaveHover}>★</span>
 );
@@ -27,6 +27,8 @@ function PostReviewPage() {
     const [culture, setCulture] = useState(0); 
     const [hoverCulture, setHoverCulture] = useState(0); 
 
+    // Fetch all programs from the backend when the component mounts
+    // used to populate the dropdown for selecting a program to review
     useEffect(() => {
         const fetchAllPrograms = async () => {
             setIsLoading(true);
@@ -44,6 +46,8 @@ function PostReviewPage() {
         fetchAllPrograms();
     }, []);
 
+    // If programId is provided in the URL, set it as the selectedProgramId so that the program is pre-selected 
+    // if the user navigates to this page directly from a "program details" page
     useEffect(() => {
         if (selectedProgramId && allPrograms.length > 0) {
             const selected = allPrograms.find(p => p.id.toString() === selectedProgramId);
@@ -53,8 +57,7 @@ function PostReviewPage() {
         }
     }, [selectedProgramId, allPrograms]);
 
-    // This is the corrected, simpler function for handling file selection.
-    // It replaces the old selection with the new one, which is standard and reliable.
+    // used to handle image selection and file validation 
     const handleImageChange = (e) => {
         if (e.target.files) {
             if (e.target.files.length > 9) {
@@ -65,16 +68,18 @@ function PostReviewPage() {
         }
     };
     
-    // This function correctly removes an image from the array.
+    // used to remove an inserted image before submission
     const handleRemoveImage = (imageNameToRemove) => {
         setImages(currentImages => currentImages.filter(image => image.name !== imageNameToRemove));
     };
 
+    // form submission handler, triggers hCaptcha
     const handleSubmit = (e) => {
         e.preventDefault();
         captchaRef.current.execute();
     };
     
+    // hCaptcha verification handler, called when the user successfully completes the captcha
     const onCaptchaVerify = async (token) => {
         const reviewData = {
             program: { id: program.id },
@@ -101,6 +106,7 @@ function PostReviewPage() {
         }
     };
 
+    // required fields validation 
     const isFormValid = program && title && rating > 0 && social > 0 && academicDifficulty > 0 && culture > 0;
 
     return (
@@ -117,7 +123,7 @@ function PostReviewPage() {
                             value={selectedProgramId}
                             onChange={(e) => setSelectedProgramId(e.target.value)}
                         >
-                            <option value="">-- Please choose a program --</option>
+                            <option value="">-- choose a program --</option>
                             {allPrograms.map(p => (
                                 <option key={p.id} value={p.id.toString()}>
                                     {p.programUniversityName} - {p.city}, {p.country}

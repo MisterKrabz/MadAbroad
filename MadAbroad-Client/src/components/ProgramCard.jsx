@@ -1,7 +1,5 @@
-// In src/components/ProgramCard.jsx
-
 import React from "react";
-import './ProgramCard.css'; // Import the specific CSS for this component
+import './ProgramCard.css'; 
 
 /**
  * A reusable card component to display study abroad program information.

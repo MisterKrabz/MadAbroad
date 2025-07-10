@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // 1. Import useEffect
+import React, { useState, useEffect } from 'react'; 
 import { HashLink as Link } from 'react-router-hash-link';
 
 import '../App.css';
@@ -9,7 +9,6 @@ import './Header.css';
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // 2. Add this useEffect hook
   useEffect(() => {
     // This function will be called whenever isMenuOpen changes
     if (isMenuOpen) {
@@ -20,8 +19,7 @@ function Header() {
       document.body.style.overflow = 'auto';
     }
 
-    // This is a "cleanup function" that runs when the component unmounts
-    // It ensures that scrolling is re-enabled if the user navigates away
+    // Ensures that scrolling is re-enabled if the user navigates away
     return () => {
       document.body.style.overflow = 'auto';
     };

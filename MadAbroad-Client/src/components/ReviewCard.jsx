@@ -1,5 +1,5 @@
 import React from 'react';
-import './ReviewCard.css'; // We will create this file next
+import './ReviewCard.css'; 
 
 // A re-usable star rating display component
 const StarRatingDisplay = ({ rating }) => {

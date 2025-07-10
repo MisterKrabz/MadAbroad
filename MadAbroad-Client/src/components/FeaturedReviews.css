@@ -12,7 +12,7 @@
 }
 
 
-/* OPTIONAL: Custom scrollbar styling for a cleaner look (WebKit browsers: Chrome, Safari, Edge) */
+/* Custom scrollbar styling for a cleaner look (WebKit browsers: Chrome, Safari, Edge) */
 .program-cards-container::-webkit-scrollbar {
   height: 8px; /* Height of the horizontal scrollbar */
 }
