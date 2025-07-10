@@ -43,6 +43,7 @@ function Header() {
         <Link smooth to="/#featured-reviews">Featured</Link> 
         <Link smooth to="/#explore">Explore</Link>
         <Link smooth to="/#about">About</Link>
+        <Link to="/post-a-review" onClick={closeMenu}>Post a Review</Link>
       </nav>
 
       <div className="search-icon-container">

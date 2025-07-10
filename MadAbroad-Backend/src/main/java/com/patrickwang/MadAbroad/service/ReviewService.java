@@ -1,11 +1,9 @@
-// In com.patrickwang.MadAbroad.service.ReviewService.java
-
 package com.patrickwang.MadAbroad.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects; // Make sure to import this
+import java.util.Objects; 
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;

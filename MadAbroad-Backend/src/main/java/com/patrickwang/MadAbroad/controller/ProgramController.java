@@ -19,8 +19,6 @@ import com.patrickwang.MadAbroad.service.ProgramService;
 
 /*
  * This layer is the API's entry/exit point for all web requests related to study abroad programs. 
- * Its job is to receive incoming HTTP requests, delegate the business logic to the ProgramService,
- * and then format and return an HTTP response (usually as JSON).
  *
  * @RestConroller means that all values from methods in this class should be serialized into
  * JSON objects and written directly to the HTTP response body. 
@@ -62,14 +60,14 @@ public class ProgramController {
      * This method creates a new program. Used by the web scraper for initial data population and by admin for 
      * manual data entry in the event of a new program being added 
      * 
-     * @param program
-     * @return
+     * @param program the new program to be added 
+     * @return 
      */
     @PostMapping // This annotation maps HTTP POST requests for /api/programs to this method.
     @ResponseStatus(HttpStatus.CREATED) // Sets the HTTP response status to 201 Created on success.
     public StudyAbroadProgram createProgram(@RequestBody StudyAbroadProgram program) {
         // The @RequestBody annotation tells Spring to convert the JSON from the request body
-        // into a StudyAbroadProgram object.
-        return programService.saveProgram(program); // You'll need to add a 'saveProgram' method to your service.
+        // into a StudyAbroadProgram object 
+        return programService.saveProgram(program); 
     }
 }
