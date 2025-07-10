@@ -1,3 +1,5 @@
+// In src/components/ProgramResultsPage.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProgramCard from './ProgramCard';
@@ -43,19 +45,13 @@ function ProgramResultsPage() {
   } else {
     content = (
       <div className="results-grid">
+        {/* This is much cleaner. I'm passing the program object directly 
+          without changing its structure.
+        */}
         {programs.map(program => (
-          // Adapt the backend's camelCase properties to the props the ProgramCard expects
           <ProgramCard 
             key={program.id} 
-            program={{
-              id: program.id,
-              program_university_name: program.programUniversityName,
-              city: program.city,
-              country: program.country,
-              terms: program.terms,
-              language: program.language,
-              areas_of_focus: program.areasOfFocus
-            }} 
+            program={program}
           />
         ))}
       </div>

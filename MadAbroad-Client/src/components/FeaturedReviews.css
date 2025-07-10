@@ -1,11 +1,3 @@
-.section-title{
-    color: black;
-    font-size: 2rem;
-    margin-left: 3rem;
-}
-
-/* src/components/FeaturedReviews.css */
-
 .program-cards-container {
   display: flex;
   /* Prevents cards from wrapping to a new line */
@@ -15,6 +7,8 @@
   gap: 2rem;
   /* Adjust padding to provide space within the scrollable area, matching the title's margin */
   padding: 1rem 3rem;
+  min-height: 300px; /* Ensure container has a minimum height even when loading */
+  align-items: center; /* Vertically center content like the loading message */
 }
 
 
@@ -35,4 +29,17 @@
 
 .program-cards-container::-webkit-scrollbar-thumb:hover {
   background-color: #b3b3b3; /* The handle on hover */
+}
+
+.status-message {
+  width: 100%;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #666;
+  font-style: italic;
+}
+
+.error-message {
+  color: #c5050c; 
+  font-weight: 500;
 }

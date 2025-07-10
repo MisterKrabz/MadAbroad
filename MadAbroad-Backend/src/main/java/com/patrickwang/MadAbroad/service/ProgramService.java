@@ -11,8 +11,7 @@ import com.patrickwang.MadAbroad.repository.ProgramRepository;
 
 /*
  * This class handles the business logic of the application. It handles rules, calculations, and operations of the application. 
- * 
- * examples of business logic: 
+ * * examples of business logic: 
  * 1. creating programs 
  * 2. data validation 
  * 3. data transformation/enrichment 
@@ -39,7 +38,11 @@ public class ProgramService {
     }
 
     public List<StudyAbroadProgram> searchPrograms(String searchTerm) {
-        // Delegate the call to the repository's new search method.
+        // If the search term is blank or null, we should return all programs.
+        if (searchTerm == null || searchTerm.isBlank()) {
+            return programRepository.findAll();
+        }
+        // Otherwise, proceed with the specific query.
         return programRepository.searchPrograms(searchTerm);
     }
 

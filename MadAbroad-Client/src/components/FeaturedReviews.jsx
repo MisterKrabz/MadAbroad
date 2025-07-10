@@ -1,62 +1,58 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
 import './FeaturedReviews.css';
-import ProgramCard from './ProgramCard';
-
-// MOCK DATA: Based on your database schema.
-// This array serves as a stand-in for the data you will eventually fetch from your API.
-const featuredPrograms = [
-  {
-    "id": 1,
-    "city": "BUENOS AIRES",
-    "country": "ARGENTINA",
-    "program_university_name": "CIEE COMMUNITY PUBLIC HEALTH",
-    "areas_of_focus": "ARTS & HUMANITIES, GLOBAL HEALTH, SOCIAL SCIENCES",
-    "language": "SPANISH",
-    "terms": "SUMMER"
-  },
-  {
-    "id": 3,
-    "city": "BUENOS AIRES",
-    "country": "ARGENTINA",
-    "program_university_name": "IFSA ARGENTINA STUDY ABROAD PROGRAM",
-    "areas_of_focus": "SOCIAL SCIENCES, ARTS & HUMANITIES",
-    "language": "SPANISH",
-    "terms": "SPRING, SUMMER, FALL, YEAR"
-  },
-  {
-    "id": 8,
-    "city": "BRISBANE",
-    "country": "AUSTRALIA",
-    "program_university_name": "UNIVERSITY OF QUEENSLAND EXCHANGE",
-    "areas_of_focus": "ARTS & HUMANITIES, BUSINESS, ENGINEERING",
-    "language": "ENGLISH",
-    "terms": "FALL, SPRING, CALENDAR YEAR"
-  },
-  {
-    "id": 14,
-    "city": "SYDNEY",
-    "country": "AUSTRALIA",
-    "program_university_name": "UNIVERSITY OF SYDNEY EXCHANGE",
-    "areas_of_focus": "AGRICULTURE, ARTS & HUMANITIES, BUSINESS",
-    "language": "ENGLISH",
-    "terms": "FALL, SPRING, CALENDAR YEAR"
-  }
-];
+import ReviewCard from './ReviewCard';
 
 function FeaturedReviews() {
+  const [featuredReviews, setFeaturedReviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchFeaturedReviews = async () => {
+      try {
+        setIsLoading(true);
+        // The API endpoint is the same
+        const response = await fetch('http://localhost:8080/api/reviews/trending');
+        if (!response.ok) {
+          throw new Error('Could not connect to the server.');
+        }
+        const data = await response.json();
+        setFeaturedReviews(data);
+        setError(null);
+      } catch (error) {
+        console.error("Error fetching featured reviews:", error);
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchFeaturedReviews();
+  }, []);
+
+  const renderContent = () => {
+    if (isLoading) {
+      return <p className="status-message">Loading reviews...</p>;
+    }
+    if (error) {
+      return <p className="status-message error-message">Could not load featured reviews.</p>;
+    }
+    if (featuredReviews.length === 0) {
+      return <p className="status-message">No featured reviews available yet.</p>;
+    }
+    // The ReviewCard component will now receive the ReviewDTO object
+    // and can access review.program.programUniversityName without issue.
+    return featuredReviews.map(review => (
+      <ReviewCard key={review.id} review={review} />
+    ));
+  };
+
   return (
     <section className="featured-reviews" id="featured-reviews">
-      <h2 className="section-title">Trending Reviews:</h2>
+      <h2 className="section-title">Featured Reviews:</h2>
       <div className="program-cards-container">
-        {/* Iterate over the 'featuredPrograms' array. For each 'program' object:
-          1. Render a 'ProgramCard' component.
-          2. Pass the entire 'program' object as a prop.
-          3. Use the unique 'program.id' as the 'key' prop, a requirement for React's list rendering optimization.
-        */}
-        {featuredPrograms.map(program => (
-          <ProgramCard key={program.id} program={program} />
-        ))}
+        {renderContent()}
       </div>
     </section>
   );

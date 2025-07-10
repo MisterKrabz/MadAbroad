@@ -1,3 +1,5 @@
+// In src/components/ProgramCard.jsx
+
 import React from "react";
 import './ProgramCard.css'; // Import the specific CSS for this component
 
@@ -21,7 +23,8 @@ function ProgramCard({ program }) {
   return (
     <div className="program-card">
       <div>
-        <h3 className="program-title">{program.program_university_name}</h3>
+        {/* I'm now using the camelCase property directly from the API */}
+        <h3 className="program-title">{program.programUniversityName}</h3>
         <p className="program-location">{location}</p>
         <p className="program-details">
           <strong>Terms:</strong> {program.terms}
@@ -30,7 +33,8 @@ function ProgramCard({ program }) {
           <strong>Languages:</strong> {program.language}
         </p>
         <p className="program-details">
-          <strong>Areas of Focus:</strong> {program.areas_of_focus}
+            {/* I'm now using the camelCase property directly from the API */}
+          <strong>Areas of Focus:</strong> {program.areasOfFocus}
         </p>
       </div>
       <a href={reviewLink} className="program-link">Read More</a>

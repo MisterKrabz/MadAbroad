@@ -53,7 +53,8 @@ public class Review {
     @Column(name = "image_url")
     private List<String> imageUrls = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    // THIS IS THE ONLY CHANGE: Changed FetchType to EAGER
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "program_id", nullable = false)
     private StudyAbroadProgram program;
 
