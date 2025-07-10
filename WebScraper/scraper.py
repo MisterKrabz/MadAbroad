@@ -1,17 +1,3 @@
-"""
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-WARNING: This script will populate the database with data from UW-Madison's Study Abroad 
-website, regardless of whether the database is empty or not. This means it might duplicate 
-already existing data within the database. 
-
-You have been advised. 
-
-Proceed with caution. 
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-"""
-
 import time
 import json
 import requests
@@ -157,9 +143,14 @@ if __name__ == '__main__':
     print("""
         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-            WARNING: This script will populate the database with data from UW-Madison's 
-            Study Abroad website, regardless of whether the database is empty or not. 
-            This means it might duplicate already existing data.
+            WARNING: This script will populate the database with unchecked data directly from 
+            UW-Madison's Study Abroad website, regardless of whether the database is empty or not. 
+            This means: 
+            
+                1. it might duplicate already existing data. 
+                
+                2. it might fill the database with broken or incomplete data if UW Madison website's 
+                    HTML or CSS structure has changed since this script was last updated. 
 
             You have been advised.
 
