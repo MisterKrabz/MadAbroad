@@ -28,20 +28,30 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Star ratings 
     @Column(nullable = false)
     private int rating; 
     private int socialScene;
     private int academicDifficulty;
     private int creditTransferability;
     private int amountOfCultureShock;
-
-    @Lob
+    
+    // other info
     @Column(columnDefinition = "TEXT", nullable = false)
     private String title;
-    private String personalAnecdote;
-    private int helpful;
-    private LocalDateTime reviewDate;
+    private String author;
+    private String wiscEmail;
+    private int helpful = 0;
+    private LocalDateTime reviewDate = LocalDateTime.now(); 
 
+    // content of review
+    @Lob
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String personalAnecdote;
+
+    // email verification status 
+    @Column(nullable = false)
+    private int verified = 0;
 
     // This now stores a list of image paths for the review.
     @ElementCollection(fetch = FetchType.EAGER) // EAGER fetch ensures image URLs are always loaded with the review.
@@ -55,7 +65,7 @@ public class Review {
 
     @PrePersist // This JPA annotation tells the system to run this method before saving a new review.
     protected void onCreate() {
-    reviewDate = LocalDateTime.now();
+        reviewDate = LocalDateTime.now();
     }
 
     public Review() {
@@ -86,4 +96,10 @@ public class Review {
     public void setCreditTransferability(int creditTransferability){ this.creditTransferability = creditTransferability; }
     public int getAmountOfCultureShock(){ return amountOfCultureShock; }
     public void setAmountOfCultureShock(int amountOfCultureShock){ this.amountOfCultureShock = amountOfCultureShock; }
+    public String getWiscEmail() { return wiscEmail; }
+    public void setWiscEmail(String wiscEmail) { this.wiscEmail = wiscEmail; }
+    public int getVerified() { return verified; }
+    public void setVerified(int verified) { this.verified = verified; }
+    public String getAuthor() { return author; }
+    public void setAuthor(String author) { this.author = author; }
 }

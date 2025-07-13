@@ -1,18 +1,17 @@
-/* src/components/PostReviewPage.css */
-
 .review-page-container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 2rem auto;
   padding: 2rem;
   background-color: #ffffff;
-  border-radius: 8px;
+  border-radius: 8px; 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  color: #333;
+  color: black;
 }
+
 
 .review-page-container h1 {
   text-align: center;
-  color: #c5050c; /* UW Red */
+  color: #c5050c; 
   margin-bottom: 1.5rem;
 }
 
@@ -31,6 +30,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  border-radius: 8px;
 }
 
 .form-group {
@@ -59,6 +59,9 @@
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
   box-sizing: border-box;
+  
+  /*override global white text color*/
+  color: black;
 }
 
 .form-input:focus,
@@ -108,7 +111,7 @@
 }
 
 #image-upload {
-  display: none; /* Hide the actual file input */
+  display: none; 
 }
 
 .image-preview {
@@ -151,4 +154,11 @@
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   background-color: #fdfdfd;
+}
+
+fieldset {
+  border: 2px solid black;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 0;
 }

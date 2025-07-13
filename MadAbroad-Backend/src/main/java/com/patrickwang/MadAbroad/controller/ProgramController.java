@@ -40,7 +40,7 @@ public class ProgramController {
     }
 
 
-    @GetMapping // This annotation maps HTTP GET requests for /api/programs to this method.
+    @GetMapping // This maps HTTP GET requests for /api/programs to this method.
     public List<StudyAbroadProgram> getAllPrograms() {
         return programService.getAllPrograms();
     }
