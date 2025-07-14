@@ -130,7 +130,7 @@ def scrape_and_process_all_pages(driver):
             next_li = driver.find_element(By.CSS_SELECTOR, 'li.pagination-next:not(.disabled)')
             driver.execute_script("arguments[0].click();", next_li.find_element(By.TAG_NAME, 'a'))
             page_number += 1
-            time.sleep(2)
+            time.sleep(.5) # Wait for the next page to load
         except NoSuchElementException:
             print("No 'Next' button found. Scraping complete.")
             break
@@ -181,7 +181,7 @@ if __name__ == '__main__':
         if scraped_data:
             for program in scraped_data:
                 send_program_to_api(program)
-                time.sleep(0.1)
+                time.sleep(0.01)
         else:
             print("No data was parsed, nothing to send to API.")
             

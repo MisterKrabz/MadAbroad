@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -34,13 +37,11 @@ public class Review {
     private int socialScene;
     private int academicDifficulty;
     private int creditTransferability;
-    private int amountOfCultureShock;
-    
+    private int culture;
     // other info
     @Column(columnDefinition = "TEXT", nullable = false)
     private String title;
-    private String author;
-    private String wiscEmail;
+    
     private int helpful = 0;
     private LocalDateTime reviewDate = LocalDateTime.now(); 
 
@@ -48,10 +49,6 @@ public class Review {
     @Lob
     @Column(columnDefinition = "TEXT", nullable = false)
     private String personalAnecdote;
-
-    // email verification status 
-    @Column(nullable = false)
-    private int verified = 0;
 
     // This now stores a list of image paths for the review.
     @ElementCollection(fetch = FetchType.EAGER) // EAGER fetch ensures image URLs are always loaded with the review.
@@ -61,7 +58,15 @@ public class Review {
 
     @ManyToOne(fetch = FetchType.LAZY) // Signifies that MANY Reviews can belong to ONE Program. LAZY fetch is a performance optimization.
     @JoinColumn(name = "program_id", nullable = false) // This creates a 'program_id' column in the 'reviews' table to link back to the program.
+    @JsonBackReference // Prevents serialization loop with program
     private StudyAbroadProgram program;
+
+    // NEW: Link to the user who wrote the review
+    @ManyToOne(fetch = FetchType.EAGER) // EAGER fetch to easily get author info
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Prevents serialization issues
+    private User user;
+
 
     @PrePersist // This JPA annotation tells the system to run this method before saving a new review.
     protected void onCreate() {
@@ -94,12 +99,8 @@ public class Review {
     public void setAcademicDifficulty(int academicDifficulty){ this.academicDifficulty = academicDifficulty; }
     public int getCreditTransferability(){ return creditTransferability; }
     public void setCreditTransferability(int creditTransferability){ this.creditTransferability = creditTransferability; }
-    public int getAmountOfCultureShock(){ return amountOfCultureShock; }
-    public void setAmountOfCultureShock(int amountOfCultureShock){ this.amountOfCultureShock = amountOfCultureShock; }
-    public String getWiscEmail() { return wiscEmail; }
-    public void setWiscEmail(String wiscEmail) { this.wiscEmail = wiscEmail; }
-    public int getVerified() { return verified; }
-    public void setVerified(int verified) { this.verified = verified; }
-    public String getAuthor() { return author; }
-    public void setAuthor(String author) { this.author = author; }
+    public int getCulture(){ return culture; }
+    public void setCulture(int culture){ this.culture = culture; }
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 }

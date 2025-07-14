@@ -1,11 +1,16 @@
 package com.patrickwang.MadAbroad.model;
 
-// Imports from Jakarta Persistence API (JPA), used for Object-Relational Mapping (ORM).
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column; 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /*
@@ -40,11 +45,14 @@ public class StudyAbroadProgram {
     @Column(nullable = false) 
     private String link;
 
+    @OneToMany(mappedBy = "program", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Review> reviews;
+
 
     /*
     * This constructor is used when data is flowing from the database to the java application. 
-    * 
-    * Its a no-argument constructor that is required by JPA for creating object instances. JPA will start with an object with all private 
+    * * Its a no-argument constructor that is required by JPA for creating object instances. JPA will start with an object with all private 
     * instance variables (columns) set as null, then populate them with data using the setters provided. 
     */
     public StudyAbroadProgram() {
@@ -85,4 +93,6 @@ public class StudyAbroadProgram {
     public void setLanguage( String language ){ this.language = language; }
     public String getLink() { return link; }
     public void setLink(String link) { this.link = link; }
+    public List<Review> getReviews() { return reviews; }
+    public void setReviews(List<Review> reviews) { this.reviews = reviews; }
 }

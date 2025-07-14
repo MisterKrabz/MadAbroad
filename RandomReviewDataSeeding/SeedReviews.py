@@ -2,22 +2,23 @@ import mysql.connector
 from faker import Faker
 import random
 import time
-from datetime import datetime, timedelta # Import timedelta
+from datetime import datetime
+import os # Import os to read environment variables
 
-# --- Configuration ---
 DB_CONFIG = {
     'host': '127.0.0.1',
     'port': 3306,
     'user': 'patrickwang',
     'password': '3035604',
     'database': 'madabroad_db'
-}
+} 
 
 NUMBER_OF_REVIEWS_TO_CREATE = 200
 
 # --- Helper Function ---
-def random_verify():
-    return random.randint(1, 10) > 1
+def should_be_verified():
+    # Returns 1 (True) 90% of the time, 0 (False) 10% of the time.
+    return 1 if random.randint(1, 10) > 1 else 0
 
 # --- Main Script ---
 def seed_reviews():
@@ -31,7 +32,7 @@ def seed_reviews():
         print("Fetching program IDs...")
         cursor.execute("SELECT id FROM programs")
         program_ids = [item[0] for item in cursor.fetchall()]
-        
+
         if not program_ids:
             print("Error: No programs found in the database. Please seed programs first.")
             return
@@ -40,41 +41,32 @@ def seed_reviews():
 
         for i in range(NUMBER_OF_REVIEWS_TO_CREATE):
             program_id = random.choice(program_ids)
-            is_verified_status = random_verify()
+            is_verified_status = should_be_verified()
 
             review_data = {
                 'rating': random.randint(1, 5),
-                'social': random.randint(1, 5),
+                'social_scene': random.randint(1, 5),          
                 'academic_difficulty': random.randint(1, 5),
+                'credit_transferability': random.randint(1, 5), 
                 'culture': random.randint(1, 5),
                 'title': fake.sentence(nb_words=random.randint(4, 8)).replace('.', ''),
-                'personal_anecdote': fake.paragraph(nb_sentences=random.randint(5, 10)),
-                'author_name': fake.name(),
-                'author_email': f"{fake.user_name()}@wisc.edu",
-                'is_verified': is_verified_status,
+                'personal_anecdote': fake.paragraph(nb_sentences=random.randint(5, 10)),                    
+                'wisc_email': f"{fake.user_name()}@wisc.edu", 
+                'verified': is_verified_status,                 
                 'helpful': random.randint(0, 500),
                 'review_date': fake.date_time_between(start_date='-2y', end_date='now'),
-                'report_count': 0,
                 'program_id': program_id,
-                # --- LOGIC CHANGE ---
-                # If the review is NOT verified, give it a token and an expiry date.
-                # If it IS verified, these will be NULL.
-                'verification_token': None if is_verified_status else fake.uuid4(),
-                'token_expiry_date': None if is_verified_status else datetime.now() - timedelta(days=1) # Expired
+                'verified': should_be_verified(),
             }
-            
-            # UPDATED: SQL statement includes token fields
+
             sql = """
             INSERT INTO reviews (
-                rating, social, academic_difficulty, culture,
-                title, personal_anecdote, author_name, author_email, is_verified,
-                helpful, review_date, report_count, program_id,
-                verification_token, token_expiry_date
+                rating, social_scene, academic_difficulty, credit_transferability, culture,
+                title, personal_anecdote, 
+                helpful, review_date, program_id
             ) VALUES (
-                %(rating)s, %(social)s, %(academic_difficulty)s, %(culture)s,
-                %(title)s, %(personal_anecdote)s, %(author_name)s, %(author_email)s, %(is_verified)s,
-                %(helpful)s, %(review_date)s, %(report_count)s, %(program_id)s,
-                %(verification_token)s, %(token_expiry_date)s
+                %(rating)s, %(social_scene)s, %(academic_difficulty)s, %(credit_transferability)s, %(culture)s,
+                %(title)s, %(personal_anecdote)s, %(helpful)s, %(review_date)s, %(program_id)s
             )
             """
             cursor.execute(sql, review_data)

@@ -1,0 +1,59 @@
+.profile-page-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    color: #333;
+}
+
+.profile-header {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.profile-header h1 {
+    margin: 0 0 0.5rem 0;
+    color: #c5050c;
+}
+
+.profile-header p {
+    margin: 0 0 1.5rem 0;
+    color: #555;
+    font-size: 1.1rem;
+}
+
+.signout-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.signout-button:hover {
+    background-color: #000;
+}
+
+.profile-reviews-section h2 {
+    font-size: 2rem;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.error-message {
+    color: #c5050c;
+}

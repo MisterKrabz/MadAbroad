@@ -2,12 +2,17 @@ package com.patrickwang.MadAbroad.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.patrickwang.MadAbroad.dto.ReviewDetailDto;
 import com.patrickwang.MadAbroad.model.Review;
 import com.patrickwang.MadAbroad.model.StudyAbroadProgram;
+import com.patrickwang.MadAbroad.model.User;
 import com.patrickwang.MadAbroad.repository.ProgramRepository;
 import com.patrickwang.MadAbroad.repository.ReviewRepository;
 
@@ -21,17 +26,16 @@ public class ReviewService {
     private final ProgramRepository programRepository;
     private final FileStorageService fileStorageService;
 
-    public Review createReviewForProgram(Long programId, Review review, List<MultipartFile> photos) {
-        // Step 1: Find the parent program and associate it
+    // This method still returns the full Review entity because the creation logic needs it.
+    public Review createReviewForProgram(Long programId, Review review, User currentUser, List<MultipartFile> photos) {
         StudyAbroadProgram program = programRepository.findById(programId)
                 .orElseThrow(() -> new RuntimeException("Program not found with id: " + programId));
         review.setProgram(program);
+        review.setUser(currentUser);
 
-        // Step 2: Perform the first save to get a generated ID for the review
         Review savedReview = reviewRepository.save(review);
         Long reviewId = savedReview.getId();
 
-        // Step 3: Store the files and collect their paths
         List<String> imageUrls = new ArrayList<>();
         if (photos != null && !photos.isEmpty()) {
             if (photos.size() > 9) {
@@ -45,12 +49,29 @@ public class ReviewService {
             }
         }
         
-        // Step 4: Update the review with the image URLs and save it again
         savedReview.setImageUrls(imageUrls);
         return reviewRepository.save(savedReview);
     }
 
-    public List<Review> getReviewsByProgramId(Long programId) {
-        return reviewRepository.findByProgramId(programId);
+    // UPDATED to return a list of DTOs
+    public List<ReviewDetailDto> getReviewsByProgramId(Long programId) {
+        return reviewRepository.findByProgramId(programId).stream()
+                .map(ReviewDetailDto::new) // Convert each Review to a ReviewDetailDto
+                .collect(Collectors.toList());
+    }
+
+    // UPDATED to return a list of DTOs
+    public List<ReviewDetailDto> getFeaturedReviews() {
+        return reviewRepository.findAll(PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "reviewDate")))
+                .getContent().stream()
+                .map(ReviewDetailDto::new) // Convert each Review to a ReviewDetailDto
+                .collect(Collectors.toList());
+    }
+    
+    // UPDATED to return a list of DTOs
+    public List<ReviewDetailDto> getReviewsForUser(User user) {
+        return reviewRepository.findByUserId(user.getId()).stream()
+                .map(ReviewDetailDto::new) // Convert each Review to a ReviewDetailDto
+                .collect(Collectors.toList());
     }
 }

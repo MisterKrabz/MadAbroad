@@ -11,11 +11,6 @@ import com.patrickwang.MadAbroad.repository.ProgramRepository;
 
 /*
  * This class handles the business logic of the application. It handles rules, calculations, and operations of the application. 
- * 
- * examples of business logic: 
- * 1. creating programs 
- * 2. data validation 
- * 3. data transformation/enrichment 
  */
 @Service // This annotation tells Spring that this is a service bean.
 public class ProgramService {

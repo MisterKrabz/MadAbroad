@@ -36,3 +36,9 @@
 .program-cards-container::-webkit-scrollbar-thumb:hover {
   background-color: #b3b3b3; /* The handle on hover */
 }
+
+#loading,
+#error,
+#no-reviews {
+  color: red;
+}
