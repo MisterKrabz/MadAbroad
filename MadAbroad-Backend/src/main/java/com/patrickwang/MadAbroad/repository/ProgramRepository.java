@@ -1,26 +1,22 @@
-// In com.patrickwang.MadAbroad.repository.ProgramRepository.java
-
 package com.patrickwang.MadAbroad.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor; // <-- IMPORT THIS
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.patrickwang.MadAbroad.model.StudyAbroadProgram; // Make sure to import List
+import com.patrickwang.MadAbroad.model.StudyAbroadProgram;
 
 /*
  * Handles all communication with the database for StudyAbroadPrograms
  */
-public interface ProgramRepository extends JpaRepository<StudyAbroadProgram, Long> {
+public interface ProgramRepository extends JpaRepository<StudyAbroadProgram, Long>, JpaSpecificationExecutor<StudyAbroadProgram> {
 
     /**
-     * Searches for programs where the search term matches text in the name, country, city, terms, or focus areas.
-     * The search is case-insensitive.
-     *
-     * @param searchTerm The string to search for.
-     * @return A list of matching study abroad programs.
+     * This query is now only used for the simple top-level search bar.
+     * The advanced filtering will use Specifications.
      */
     @Query("SELECT p FROM StudyAbroadProgram p WHERE " +
            "LOWER(p.programUniversityName) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +

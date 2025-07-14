@@ -1,6 +1,5 @@
 /* src/components/Explore.css */
 .explore-section {
-  /* Use a clean background and add padding for separation from other content */
   background-color: #ffffff;
   padding-top: 2rem;
   padding-bottom: 3rem;
@@ -9,27 +8,27 @@
 
 .filters-container {
   display: flex;
-  flex-wrap: wrap; /* Allows filters to stack on smaller screens */
-  gap: 1.5rem; /* Space between each filter group */
-  align-items: flex-end; /* Aligns all items, including the button, along their bottom edge */
-  padding: 0 3rem; /* Match the side padding of other section titles */
+  flex-wrap: wrap; 
+  gap: 1.5rem;
+  align-items: flex-end;
+  padding: 0 3rem; 
+  margin-bottom: 2rem; /* Add space between filters and results */
 }
 
+/* ... (filter-group, filter-button, etc. styles remain the same) ... */
 .filter-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* Space between label and input */
-  flex: 1 1 200px; /* Allows the element to grow and shrink, with a base width */
+  gap: 0.5rem;
+  flex: 1 1 200px;
   min-width: 200px;
 }
-
 .filter-group label {
   font-weight: 500;
   color: #333;
   font-size: 1rem;
   text-align: left;
 }
-
 .filter-group select,
 .filter-group input {
   padding: 0.8rem;
@@ -40,14 +39,12 @@
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   color: #333;
 }
-
 .filter-group select:focus,
 .filter-group input:focus {
   outline: none;
-  border-color: #c5050c; /* Highlight with brand color on focus */
+  border-color: #c5050c;
   box-shadow: 0 0 0 3px rgba(197, 5, 12, 0.15);
 }
-
 .filter-button {
   padding: 0.8rem 2.5rem;
   background-color: #c5050c;
@@ -58,9 +55,53 @@
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  height: fit-content; /* Ensure button aligns correctly with form fields */
+  height: fit-content;
 }
-
 .filter-button:hover {
   background-color: #a4040a;
+}
+.filter-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+
+.explore-results-container {
+  min-height: 200px; /* Give it some height so messages are visible */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.results-scroll-container {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 2rem;
+  padding: 1rem 3rem;
+  width: 100%;
+}
+
+.results-message {
+    color: #555;
+    font-size: 1.2rem;
+}
+
+.results-message.error {
+    color: #c5050c;
+}
+
+.results-scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+.results-scroll-container::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+.results-scroll-container::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 4px;
+}
+.results-scroll-container::-webkit-scrollbar-thumb:hover {
+  background-color: #b3b3b3;
 }

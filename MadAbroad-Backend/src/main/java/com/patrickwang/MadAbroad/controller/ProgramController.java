@@ -17,19 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.patrickwang.MadAbroad.model.StudyAbroadProgram;
 import com.patrickwang.MadAbroad.service.ProgramService;
 
-/*
- * This layer is the API's entry/exit point for all web requests related to study abroad programs. 
- * Its job is to receive incoming HTTP requests, delegate the business logic to the ProgramService,
- * and then format and return an HTTP response (usually as JSON).
- *
- * @RestConroller means that all values from methods in this class should be serialized into
- * JSON objects and written directly to the HTTP response body. 
- * 
- * @RequestMapping maps all requests for that URL path to this controller. 
- */
-@RestController // Marks this class as a REST controller, which combines @Controller and @ResponseBody. 
-                // @ ResponseBody auto converts the returned java objects into JSON for the HTTP response
-@RequestMapping("/api/programs") // Maps all methods in this class to a base URL path. All endpoints will start with /api/programs
+@RestController
+@RequestMapping("/api/programs")
 public class ProgramController {
 
     private final ProgramService programService;
@@ -40,36 +29,41 @@ public class ProgramController {
     }
 
 
-    @GetMapping // This maps HTTP GET requests for /api/programs to this method.
+    @GetMapping
     public List<StudyAbroadProgram> getAllPrograms() {
         return programService.getAllPrograms();
     }
 
-    @GetMapping("/{id}") // This maps GET requests for /api/programs/1, /api/programs/2, etc.
+    @GetMapping("/{id}")
     public ResponseEntity<StudyAbroadProgram> getProgramById(@PathVariable Long id) {
-    // The @PathVariable annotation takes the "id" from the URL and passes it to the method.
-    return programService.getProgramById(id)
-        .map(program -> ResponseEntity.ok(program)) // If the program is found, return it with a 200 OK status.
-        .orElse(ResponseEntity.notFound().build()); // If the program aint found, return a 404 Not Found status.
-    }
-
-    @GetMapping("/search")
-    public List<StudyAbroadProgram> searchPrograms(@RequestParam("q") String query) {
-        return programService.searchPrograms(query);
+        return programService.getProgramById(id)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
     }
 
     /**
-     * This method creates a new program. Used by the web scraper for initial data population and by admin for 
-     * manual data entry in the event of a new program being added 
-     * 
-     * @param program
-     * @return
+     * This endpoint now handles both simple text search and advanced filtering.
+     * If 'q' is provided, it performs a simple text search.
+     * If other params are provided, it performs a structured filter.
      */
-    @PostMapping // This annotation maps HTTP POST requests for /api/programs to this method.
-    @ResponseStatus(HttpStatus.CREATED) // Sets the HTTP response status to 201 Created on success.
+    @GetMapping("/search")
+    public List<StudyAbroadProgram> searchOrFilterPrograms(
+            @RequestParam(name = "q", required = false) String query,
+            @RequestParam(required = false) String focus,
+            @RequestParam(required = false) String term,
+            @RequestParam(required = false) String language,
+            @RequestParam(required = false) String location
+    ) {
+        if (query != null && !query.isEmpty()) {
+            return programService.searchPrograms(query); // For the hero search bar
+        } else {
+            return programService.filterPrograms(focus, term, language, location); // For the explore section
+        }
+    }
+    
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public StudyAbroadProgram createProgram(@RequestBody StudyAbroadProgram program) {
-        // The @RequestBody annotation tells Spring to convert the JSON from the request body
-        // into a StudyAbroadProgram object.
-        return programService.saveProgram(program); // You'll need to add a 'saveProgram' method to your service.
+        return programService.saveProgram(program);
     }
 }
