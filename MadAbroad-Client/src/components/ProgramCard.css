@@ -7,12 +7,11 @@
   padding: 1.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 320px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Ensures the button aligns to the bottom */
+  justify-content: space-between;
   text-align: left;
-  min-width: 25rem;
+  min-width: 0; /* Prevents content from breaking out of the grid cell */
 }
 
 .program-card:hover {
@@ -23,10 +22,11 @@
 .program-title {
   font-size: 1.25rem;
   font-weight: 600;
-  /* Using the brand's red color for emphasis */
   color: #c5050c;
   margin: 0 0 0.5rem 0;
   line-height: 1.3;
+  overflow-wrap: break-word; /* THIS IS THE FIX: Forces long text to wrap */
+  word-wrap: break-word; /* Fallback for older browsers */
 }
 
 .program-location {
@@ -48,7 +48,7 @@
 
 .program-link {
   display: inline-block;
-  align-self: flex-start; /* Aligns button to the left */
+  align-self: flex-start;
   margin-top: 1.5rem;
   padding: 0.6rem 1.2rem;
   background-color: #c5050c;

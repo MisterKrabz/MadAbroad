@@ -1,10 +1,9 @@
-/* src/components/ProgramResultsPage.css */
 
 .results-page-container {
   background-color: #ffffff;
   padding: 2rem 3rem;
   color: black;
-  min-height: 80vh; /* Ensure it takes up most of the screen height */
+  min-height: 80vh;
 }
 
 .results-title {
@@ -17,7 +16,71 @@
 
 .results-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  /* This creates a responsive grid that fits as many cards as possible per row */
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 2rem;
+}
 
+.program-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* REMOVED: width: 320px; */
+  /* REMOVED: min-width: 25rem; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures the button aligns to the bottom */
+  text-align: left;
+}
+
+.program-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+.program-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  /* Using the brand's red color for emphasis */
+  color: #c5050c;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.3;
+}
+
+.program-location {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+}
+
+.program-details {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0.3rem 0;
+}
+
+.program-details strong {
+  color: #333;
+}
+
+.program-link {
+  display: inline-block;
+  align-self: flex-start; /* Aligns button to the left */
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #c5050c;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 500;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.program-link:hover {
+  background-color: #a4040a;
 }

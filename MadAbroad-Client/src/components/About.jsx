@@ -7,7 +7,7 @@ function About(){
         <div id="about">
             <h1 className="section-title">About Mad Abroad</h1>
             <p className="about-description">
-                Mad Abroad is a community-driven platform designed to help students at the University of Wisconsin-Madison share their study abroad experiences independently.
+                Mad Abroad is a community-driven platform designed to help students at the University of Wisconsin-Madison share their study abroad experiences.
                 <br/>
                 <br/>
                 Our mission is to provide a space where students can read and write reviews about various study abroad programs, allowing students considering studying 
