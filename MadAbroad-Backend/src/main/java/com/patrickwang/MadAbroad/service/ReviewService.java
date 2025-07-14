@@ -1,11 +1,10 @@
 package com.patrickwang.MadAbroad.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -53,25 +52,27 @@ public class ReviewService {
         return reviewRepository.save(savedReview);
     }
 
-    // UPDATED to return a list of DTOs
     public List<ReviewDetailDto> getReviewsByProgramId(Long programId) {
         return reviewRepository.findByProgramId(programId).stream()
                 .map(ReviewDetailDto::new) // Convert each Review to a ReviewDetailDto
                 .collect(Collectors.toList());
     }
 
-    // UPDATED to return a list of DTOs
-    public List<ReviewDetailDto> getFeaturedReviews() {
-        return reviewRepository.findAll(PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "reviewDate")))
-                .getContent().stream()
-                .map(ReviewDetailDto::new) // Convert each Review to a ReviewDetailDto
+    public List<ReviewDetailDto> getTrendingReviews() {
+        List<Review> top50Helpful = reviewRepository.findTop50ByOrderByHelpfulDesc();
+        Collections.shuffle(top50Helpful);
+        List<Review> random10 = top50Helpful.stream().limit(10).collect(Collectors.toList());
+
+        return random10.stream()
+                .map(ReviewDetailDto::new)
                 .collect(Collectors.toList());
     }
     
-    // UPDATED to return a list of DTOs
     public List<ReviewDetailDto> getReviewsForUser(User user) {
         return reviewRepository.findByUserId(user.getId()).stream()
                 .map(ReviewDetailDto::new) // Convert each Review to a ReviewDetailDto
                 .collect(Collectors.toList());
     }
+
+
 }

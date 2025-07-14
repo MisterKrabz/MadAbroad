@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import ProgramCard from './ProgramCard';
+import ProgramCard from '../components/ProgramCard';
 import './ProgramResultsPage.css';
 
 function ProgramResultsPage() {

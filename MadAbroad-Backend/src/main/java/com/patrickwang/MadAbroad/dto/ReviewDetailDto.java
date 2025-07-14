@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.patrickwang.MadAbroad.model.Review;
+import com.patrickwang.MadAbroad.model.StudyAbroadProgram;
+import com.patrickwang.MadAbroad.model.User;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +27,7 @@ public class ReviewDetailDto {
     private UserSummaryDto user;
     private ProgramSummaryDto program;
 
-    // This is a "mapping" constructor that converts an Entity to a DTO
+    // This constructor is now more robust and handles nulls gracefully.
     public ReviewDetailDto(Review review) {
         this.id = review.getId();
         this.rating = review.getRating();
@@ -38,7 +40,17 @@ public class ReviewDetailDto {
         this.reviewDate = review.getReviewDate();
         this.helpful = review.getHelpful();
         this.imageUrls = review.getImageUrls();
-        this.user = new UserSummaryDto(review.getUser().getId(), review.getUser().getName());
-        this.program = new ProgramSummaryDto(review.getProgram().getId(), review.getProgram().getProgramUniversityName());
+        
+        // Safely handle the user object
+        User reviewUser = review.getUser();
+        if (reviewUser != null) {
+            this.user = new UserSummaryDto(reviewUser.getId(), reviewUser.getName());
+        }
+
+        // Safely handle the program object
+        StudyAbroadProgram reviewProgram = review.getProgram();
+        if (reviewProgram != null) {
+            this.program = new ProgramSummaryDto(reviewProgram.getId(), reviewProgram.getProgramUniversityName());
+        }
     }
 }

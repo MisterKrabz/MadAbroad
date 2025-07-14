@@ -56,9 +56,4 @@ public class ReviewController {
     public List<ReviewDetailDto> getReviewsForProgram(@PathVariable Long programId) {
         return reviewService.getReviewsByProgramId(programId);
     }
-    
-    @GetMapping("/featured")
-    public List<ReviewDetailDto> getFeaturedReviews() {
-        return reviewService.getFeaturedReviews();
-    }
 }

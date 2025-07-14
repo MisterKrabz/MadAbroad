@@ -17,7 +17,7 @@
 
 .results-grid {
   display: grid;
-  /* Create a responsive grid that shows 1, 2, or 3 cards per row */
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 2rem;
+
 }

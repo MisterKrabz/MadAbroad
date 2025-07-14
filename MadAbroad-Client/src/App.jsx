@@ -11,7 +11,7 @@ import Explore from './components/Explore';
 import About from './components/About';
 import Footer from './components/Footer';
 import PostReviewPage from './components/PostReviewPage';
-import ProgramResultsPage from './components/ProgramResultsPage';
+import ProgramResultsPage from './pages/ProgramResultsPage';
 // NEW: Import new pages
 import SignInPage from './pages/SignInPage';
 import CompleteProfilePage from './pages/CompleteProfilePage';

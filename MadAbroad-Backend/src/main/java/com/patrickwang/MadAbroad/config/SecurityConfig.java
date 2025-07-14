@@ -38,9 +38,10 @@ public class SecurityConfig {
                 // Public endpoints
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/programs/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/programs").permitAll() // <-- THIS IS THE FIX
+                .requestMatchers(HttpMethod.POST, "/api/programs").permitAll()
                 .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/programs/{programId}/reviews/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/reviews/trending").permitAll() // <-- THIS IS THE FIX
                 
                 // Protected endpoints
                 .requestMatchers(HttpMethod.POST, "/api/programs/{programId}/reviews").authenticated()
@@ -59,11 +60,10 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // EDIT: Changed port from 3000 to 5173 to match the Vite frontend
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
-        configuration.setAllowCredentials(true); // Important for sending cookies/auth headers
+        configuration.setAllowCredentials(true);
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

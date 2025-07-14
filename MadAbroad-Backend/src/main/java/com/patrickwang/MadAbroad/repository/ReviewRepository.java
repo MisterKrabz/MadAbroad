@@ -16,6 +16,8 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<Review> findByProgramId(Long programId);
 
     // Finds all reviews associated with a specific user's ID.
-    // used in the Profile Section of the frontend
     List<Review> findByUserId(Long userId);
+
+    // Finds the top 50 most helpful reviews.
+    List<Review> findTop50ByOrderByHelpfulDesc();
 }
