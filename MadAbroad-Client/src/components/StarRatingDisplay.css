@@ -1,0 +1,29 @@
+.star-rating-display {
+    display: inline-flex;
+    color: #ffc107; /* Gold color for stars */
+}
+
+.star-rating-display .star {
+    font-size: 1rem;
+    position: relative;
+    display: inline-block;
+}
+
+.star-rating-display .star.empty {
+    color: #e4e5e9;
+}
+
+.star-rating-display .star.half {
+    color: #e4e5e9;
+}
+
+/* Creates the half-filled effect */
+.star-rating-display .star.half::before {
+    content: '★';
+    color: #ffc107;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    overflow: hidden;
+}

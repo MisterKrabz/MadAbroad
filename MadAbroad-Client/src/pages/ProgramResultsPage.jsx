@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProgramCard from '../components/ProgramCard';
-import './ProgramResultsPage.css';
+import './ProgramResultsPage.css'; // <-- THIS IMPORT IS THE CRITICAL FIX
 
 function ProgramResultsPage() {
   const [programs, setPrograms] = useState([]);
@@ -11,15 +11,13 @@ function ProgramResultsPage() {
 
   useEffect(() => {
     const fetchPrograms = async () => {
-      // Get the search query from URL, or default to empty to show all programs
+      setIsLoading(true);
       const query = searchParams.get('q') || '';
       
       try {
-        // Make a request to your live backend search endpoint
         const response = await fetch(`http://localhost:8080/api/programs/search?q=${query}`);
-
         if (!response.ok) {
-          throw new Error('Data could not be fetched!');
+            throw new Error('Data could not be fetched!');
         }
         const data = await response.json();
         setPrograms(data);
@@ -31,7 +29,7 @@ function ProgramResultsPage() {
     };
 
     fetchPrograms();
-  }, [searchParams]); // Re-run this logic every time the URL search query changes
+  }, [searchParams]);
 
   let content;
   if (isLoading) {
@@ -44,19 +42,7 @@ function ProgramResultsPage() {
     content = (
       <div className="results-grid">
         {programs.map(program => (
-          // Adapt the backend's camelCase properties to the props the ProgramCard expects
-          <ProgramCard 
-            key={program.id} 
-            program={{
-              id: program.id,
-              program_university_name: program.programUniversityName,
-              city: program.city,
-              country: program.country,
-              terms: program.terms,
-              language: program.language,
-              areas_of_focus: program.areasOfFocus
-            }} 
-          />
+          <ProgramCard key={program.id} program={program} />
         ))}
       </div>
     );

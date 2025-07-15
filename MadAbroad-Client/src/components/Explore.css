@@ -12,10 +12,9 @@
   gap: 1.5rem;
   align-items: flex-end;
   padding: 0 3rem; 
-  margin-bottom: 2rem; /* Add space between filters and results */
+  margin-bottom: 2rem; 
 }
 
-/* ... (filter-group, filter-button, etc. styles remain the same) ... */
 .filter-group {
   display: flex;
   flex-direction: column;
@@ -67,7 +66,7 @@
 
 
 .explore-results-container {
-  min-height: 200px; /* Give it some height so messages are visible */
+  min-height: 200px; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -80,6 +79,11 @@
   gap: 2rem;
   padding: 1rem 3rem;
   width: 100%;
+}
+
+.results-scroll-container .program-card-link {
+  flex-shrink: 0; 
+  width: 400px;   
 }
 
 .results-message {

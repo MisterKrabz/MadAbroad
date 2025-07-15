@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../App.css';
 import './Explore.css';
-import ProgramCard from './ProgramCard'; // We'll need this to display results
+import ProgramCard from './ProgramCard';
 
 function Explore() {
     // State for each filter input
@@ -14,7 +14,7 @@ function Explore() {
     const [results, setResults] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [hasSearched, setHasSearched] = useState(false); // Track if a search has been performed
+    const [hasSearched, setHasSearched] = useState(false);
 
     // Static options for filters
     const termOptions = ['Any Term', 'Fall', 'Spring', 'Summer', 'Winter Intersession', 'Full Year'];
@@ -26,7 +26,6 @@ function Explore() {
         setError(null);
         setHasSearched(true);
 
-        // Build the query string from the state
         const params = new URLSearchParams();
         if (focus && focus !== 'Any Focus Area') params.append('focus', focus);
         if (term && term !== 'Any Term') params.append('term', term);
@@ -79,7 +78,6 @@ function Explore() {
                 </button>
             </div>
 
-            {/* NEW: Results Section */}
             <div className="explore-results-container">
                 {isLoading && <p className="results-message">Loading results...</p>}
                 {error && <p className="results-message error">{error}</p>}
@@ -89,18 +87,7 @@ function Explore() {
                 {!isLoading && !error && results.length > 0 && (
                     <div className="results-scroll-container">
                         {results.map(program => (
-                            <ProgramCard 
-                                key={program.id}
-                                program={{
-                                    id: program.id,
-                                    program_university_name: program.programUniversityName,
-                                    city: program.city,
-                                    country: program.country,
-                                    terms: program.terms,
-                                    language: program.language,
-                                    areas_of_focus: program.areasOfFocus
-                                }}
-                            />
+                            <ProgramCard key={program.id} program={program} />
                         ))}
                     </div>
                 )}

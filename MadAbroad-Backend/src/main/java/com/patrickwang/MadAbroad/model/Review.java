@@ -50,7 +50,7 @@ public class Review {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String personalAnecdote;
 
-    // This now stores a list of image paths for the review.
+    // This stores a list of image paths for the review.
     @ElementCollection(fetch = FetchType.EAGER) // EAGER fetch ensures image URLs are always loaded with the review.
     @CollectionTable(name = "review_image_urls", joinColumns = @JoinColumn(name = "review_id")) // Creates a separate table for the URLs.
     @Column(name = "image_url") // Defines the column name in the new table.

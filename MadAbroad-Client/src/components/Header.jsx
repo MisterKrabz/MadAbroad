@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { NavLink, Link } from 'react-router-dom'; // Use Link for the profile icon
-import { useAuth } from '../auth/AuthContext';
+import { useAuth } from '../auth/authContext';
 
 import '../App.css';
 import logo from '../assets/logo.png';

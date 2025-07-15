@@ -8,7 +8,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -35,24 +34,22 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
-                // Public endpoints
+                // --- Public endpoints ---
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/programs/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/programs").permitAll()
                 .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/programs/{programId}/reviews/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/reviews/trending").permitAll() // <-- THIS IS THE FIX
+                .requestMatchers(HttpMethod.GET, "/api/reviews/trending").permitAll()
                 
-                // Protected endpoints
-                .requestMatchers(HttpMethod.POST, "/api/programs/{programId}/reviews").authenticated()
+                // TEMPORARY TEST: Make review posting public to isolate the error
+                .requestMatchers(HttpMethod.POST, "/api/programs/{programId}/reviews").permitAll()
+                
+                // --- Protected endpoints ---
                 .requestMatchers("/api/users/me/**").authenticated() 
                 .anyRequest().authenticated()
             )
-            .addFilterBefore(new JwtAuthFilter(jwtService, userRepository), UsernamePasswordAuthenticationFilter.class)
-            .logout(logout -> logout
-                .logoutUrl("/api/auth/logout")
-                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
-            );
+            .addFilterBefore(new JwtAuthFilter(jwtService, userRepository), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

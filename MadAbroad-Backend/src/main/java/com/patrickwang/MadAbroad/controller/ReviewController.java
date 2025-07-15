@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.patrickwang.MadAbroad.dto.ReviewDetailDto;
+import com.patrickwang.MadAbroad.dto.ReviewRequestDto;
 import com.patrickwang.MadAbroad.model.Review;
 import com.patrickwang.MadAbroad.model.User;
 import com.patrickwang.MadAbroad.service.ReviewService;
@@ -31,25 +32,25 @@ public class ReviewController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Review postReview(
+    public ReviewDetailDto postReview(
             @PathVariable Long programId,
-            @RequestParam(value = "files", required = false) List<MultipartFile> files,
             @RequestParam("review") String reviewJson,
+            @RequestParam(value = "files", required = false) List<MultipartFile> files,
             @AuthenticationPrincipal User currentUser
-    ) {
+    ) throws IOException {
         if (currentUser == null) {
             throw new IllegalStateException("User must be authenticated to post a review.");
         }
-        
-        Review review;
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            review = objectMapper.readValue(reviewJson, Review.class);
-        } catch (IOException e) {
-            throw new RuntimeException("Could not parse review JSON: " + e.getMessage());
-        }
 
-        return reviewService.createReviewForProgram(programId, review, currentUser, files);
+        // Manually convert the JSON string part into our DTO
+        ObjectMapper objectMapper = new ObjectMapper();
+        ReviewRequestDto reviewRequestDto = objectMapper.readValue(reviewJson, ReviewRequestDto.class);
+        
+        // Call the service to create the review
+        Review createdReview = reviewService.createReviewForProgram(programId, reviewRequestDto, currentUser, files);
+
+        // Convert the final created entity to a DTO for a clean response
+        return new ReviewDetailDto(createdReview);
     }
 
     @GetMapping

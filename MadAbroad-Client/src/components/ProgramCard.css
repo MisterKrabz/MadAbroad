@@ -1,5 +1,12 @@
 /* src/components/ProgramCard.css */
 
+a.program-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block; 
+    margin-bottom: 3rem; 
+}
+
 .program-card {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
@@ -11,7 +18,8 @@
   flex-direction: column;
   justify-content: space-between;
   text-align: left;
-  min-width: 0; /* Prevents content from breaking out of the grid cell */
+  min-width: 0;
+  height: 100%;
 }
 
 .program-card:hover {
@@ -25,8 +33,8 @@
   color: #c5050c;
   margin: 0 0 0.5rem 0;
   line-height: 1.3;
-  overflow-wrap: break-word; /* THIS IS THE FIX: Forces long text to wrap */
-  word-wrap: break-word; /* Fallback for older browsers */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .program-location {
@@ -36,17 +44,20 @@
   text-transform: capitalize;
 }
 
-.program-details {
-  font-size: 0.9rem;
-  color: #666;
-  margin: 0.3rem 0;
+.program-rating-summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
 }
 
-.program-details strong {
-  color: #333;
+.program-rating-summary .review-count {
+    font-weight: normal;
+    color: #555;
 }
 
-.program-link {
+.program-link-button {
   display: inline-block;
   align-self: flex-start;
   margin-top: 1.5rem;
@@ -60,6 +71,6 @@
   transition: background-color 0.3s ease;
 }
 
-.program-link:hover {
-  background-color: #a4040a;
+a.program-card-link:hover .program-link-button {
+    background-color: #a4040a;
 }

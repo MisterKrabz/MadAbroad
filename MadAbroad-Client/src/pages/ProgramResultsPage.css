@@ -1,3 +1,4 @@
+/* src/pages/ProgramResultsPage.css */
 
 .results-page-container {
   background-color: #ffffff;
@@ -16,7 +17,6 @@
 
 .results-grid {
   display: grid;
-  /* This creates a responsive grid that fits as many cards as possible per row */
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 2rem;
 }
